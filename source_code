@@ -1,0 +1,55 @@
+# Update and install Mcrypt
+sudo apt update
+sudo apt install mcrypt
+
+/*
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  mcrypt
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 100 kB of archives.
+After this operation, 283 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+...
+Setting up mcrypt (2.6.8-11) ...
+*/
+
+
+# Create a plain text file to encrypt
+echo "Sensitive data that needs encryption" > plaintext.txt
+
+# No output for this command, it creates a file named plaintext.txt
+
+cat plaintext.txt
+#Sensitive data that needs encryption
+
+# Encrypt the file using Mcrypt
+# You will be prompted to enter the passphrase twice
+mcrypt -a rijndael-128 -m cbc -k "thisisaverysecurekey" plaintext.txt
+
+
+/*Enter the passphrase (maximum of 512 characters)
+Please use a combination of upper and lower case letters and numbers.
+Enter passphrase: 
+Enter passphrase: 
+
+File plaintext.txt was encrypted.
+*/
+
+ls
+
+#plaintext.txt.nc
+
+# Decrypt the file using Mcrypt
+# You will be prompted to enter the passphrase twice
+mcrypt -d -a rijndael-128 -m cbc -k "thisisaverysecurekey" plaintext.txt.nc
+
+/*Enter the passphrase (maximum of 512 characters)
+Please use a combination of upper and lower case letters and numbers.
+Enter passphrase: 
+Enter passphrase: 
+
+File plaintext.txt.nc was decrypted.
+*/
